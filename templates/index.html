@@ -1,1 +1,76 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: calibri;
+            background-image: url("{{ url_for('static', filename='weather_app_bg.jpg') }}");
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .container {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #city_label {
+            font-size: 30px;
+            font-style: italic;
+        }
+        #city_input {
+            font-size: 20px;
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #get_weather_button {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+        #weather_result {
+            margin-top: 20px;
+        }
+        #temperature_label {
+            font-size: 40px;
+        }
+        #emoji_label {
+            font-size: 50px;
+            font-family: Segoe UI emoji;
+        }
+        #description_label {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="city_label">Enter the city name</h1>
+        <form method="post">
+            <input id="city_input" type="text" name="city" placeholder="Enter city name">
+            <br><br>
+            <input id="get_weather_button" type="submit" value="Get Weather">
+        </form>
+        <div id="weather_result">
+            {% if weather_data %}
+                <h2>{{ weather_data.city }}</h2>
+                <p id="temperature_label">{{ weather_data.temperature }}</p>
+                <p id="emoji_label">{{ weather_data.emoji }}</p>
+                <p id="description_label">{{ weather_data.description }}</p>
+            {% elif error_message %}
+                <p>{{ error_message }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
